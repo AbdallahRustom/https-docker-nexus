@@ -2,7 +2,7 @@
 FROM ubuntu:20.04
 
 # Set environment variables
-ENV NEXUS_VERSION=3.30.0-01
+ENV NEXUS_VERSION=3.72.0-04
 ENV NEXUS_DOWNLOAD_URL=https://download.sonatype.com/nexus/3/nexus-${NEXUS_VERSION}-unix.tar.gz
 ENV SONATYPE_DIR=/opt/sonatype
 ENV NEXUS_HOME=${SONATYPE_DIR}/nexus
@@ -13,7 +13,7 @@ ENV INSTALL4J_JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 # Install required packages
 RUN apt-get update && apt-get install -y \
 #    openjdk-11-jdk \ 
-    openjdk-8-jdk \
+    openjdk-17-jdk \
     openssl \ 
     libxml2 \
     gosu \

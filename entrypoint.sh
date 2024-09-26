@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-cp -r /mnt/ssl/ /opt/sonatype/nexus/nexus-3.30.0-01/etc/
-cp /mnt/nexus-default.properties /opt/sonatype/nexus/nexus-3.30.0-01/etc/nexus-default.properties
-cd /opt/sonatype/nexus/nexus-3.30.0-01/etc/ssl
+cp -r /mnt/ssl/ /opt/sonatype/nexus/nexus-3.72.0-04/etc/
+cp /mnt/nexus-default.properties /opt/sonatype/nexus/nexus-3.72.0-04/etc/nexus-default.properties
+cd /opt/sonatype/nexus/nexus-3.72.0-04/etc/ssl
 set -x
 set -eo pipefail
 
@@ -20,17 +20,17 @@ fi
 mkdir -p "$NEXUS_DATA"
 chown -R nexus:nexus "$NEXUS_DATA"
 
-JETTY_HTTPS_FILE="/opt/sonatype/nexus/nexus-3.30.0-01/etc/jetty/jetty-https.xml"
+JETTY_HTTPS_FILE="/opt/sonatype/nexus/nexus-3.72.0-04/etc/jetty/jetty-https.xml"
 TEMP_FILE=$(mktemp)
 
 while IFS= read -r line; do
   if [[ "$line" == *"<Set name=\"KeyStorePath\">"* ]]; then
     INDENTATION=$(echo "$line" | sed 's/[^ ]//g')
-    echo "${INDENTATION}<Set name=\"KeyStorePath\">/opt/sonatype/nexus/nexus-3.30.0-01/etc/ssl/keystore.jks</Set>" >> "$TEMP_FILE"
+    echo "${INDENTATION}<Set name=\"KeyStorePath\">/opt/sonatype/nexus/nexus-3.72.0-04/etc/ssl/keystore.jks</Set>" >> "$TEMP_FILE"
     echo "${INDENTATION}<Set name=\"certAlias\">jetty</Set>" >> "$TEMP_FILE"
   elif [[ "$line" == *"<Set name=\"TrustStorePath\">"* ]]; then
     INDENTATION=$(echo "$line" | sed 's/[^ ]//g')
-    echo "${INDENTATION}<Set name=\"TrustStorePath\">/opt/sonatype/nexus/nexus-3.30.0-01/etc/ssl/keystore.jks</Set>" >> "$TEMP_FILE"
+    echo "${INDENTATION}<Set name=\"TrustStorePath\">/opt/sonatype/nexus/nexus-3.72.0-04/etc/ssl/keystore.jks</Set>" >> "$TEMP_FILE"
   else
     echo "$line" >> "$TEMP_FILE"
   fi
@@ -42,6 +42,6 @@ echo "certAlias line added successfully."
 
 
 
-exec /opt/sonatype/nexus/nexus-3.30.0-01/bin/nexus run
+exec /opt/sonatype/nexus/nexus-3.72.0-04/bin/nexus run
 
 exec "$@"

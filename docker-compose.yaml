@@ -8,8 +8,8 @@ services:
     environment:
       - PUBLIC_CERT=fullchain.pem
       - PRIVATE_KEY=privkey.pem
-      - NEXUS_SSL=/opt/sonatype/nexus/nexus-3.30.0-01/etc/ssl
-      - NEXUS_HOME=/opt/sonatype/nexus/nexus-3.30.0-01
+      - NEXUS_SSL=/opt/sonatype/nexus/nexus-3.72.0-04/etc/ssl
+      - NEXUS_HOME=/opt/sonatype/nexus/nexus-3.72.0-04
       - PRIVATE_KEY_PASSWORD=abdallah
     volumes:
       - nexus-data:/nexus-data
