@@ -1,0 +1,35 @@
+version: '3'
+services:
+  nexus:
+    image: bradbeck/nexus-https
+    container_name: nexus
+    entrypoint: bash ./entrypoint.sh
+#    command: sleep 100000
+    environment:
+      - PUBLIC_CERT=fullchain.pem
+      - PRIVATE_KEY=privkey.pem
+      - NEXUS_SSL=/opt/sonatype/nexus/nexus-3.30.0-01/etc/ssl
+      - NEXUS_HOME=/opt/sonatype/nexus/nexus-3.30.0-01
+      - PRIVATE_KEY_PASSWORD=abdallah
+    volumes:
+      - nexus-data:/nexus-data
+      - ./nexus-ssl:/mnt/ssl
+      - ./nexus-default.properties:/mnt/nexus-default.properties
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    expose:
+      - "8081/tcp"
+      - "8443/tcp"
+    ports:
+      - "8081:8081/tcp"
+      - "8443:8443/tcp"
+    networks:
+      default:
+        ipv4_address: 172.22.0.2
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: 172.22.0.0/29
+volumes:
+  nexus-data: {}
